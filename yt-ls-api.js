@@ -17,7 +17,12 @@ var aggrByArtistsFrom = {};
 var aggrByRecordedIn = {};
 var notTaggedYet = [];
 
-async function main() {
+
+/////////////////////////////////////
+/////// Main Functions ////////
+/////////////////////////////////////
+
+async function aggregate() {
 
 //reset vars
 nextPageToken = undefined;
@@ -53,11 +58,15 @@ console.log('Aggregation done');
 
 };
 
-main().catch(console.error);
+
+//this will run the method (for test only since this is a module)
+//aggregate().catch(console.error);
 
 
-/////// Functions ////////
 
+/////////////////////////////////////
+/////// underlying Functions ////////
+/////////////////////////////////////
 
 // Retrieve the list of videos in the specified playlist.
 function requestVideoPlaylist(playlistId, pageToken) {
@@ -247,3 +256,5 @@ function aggregateVideosPerCountry(){
 	});
 	
 }
+
+module.exports.aggregate = aggregate;
