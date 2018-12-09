@@ -1,0 +1,23 @@
+{
+  "name": "loustic-backend",
+  "version": "1.0.0",
+  "description": "back end for loustic sessions services",
+  "main": "index.js",
+  "dependencies": {
+    "googleapis": "^36.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/friachi/loustic-backend.git"
+  },
+  "author": "Fahed Al Riachi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/friachi/loustic-backend/issues"
+  },
+  "homepage": "https://github.com/friachi/loustic-backend#readme"
+}
