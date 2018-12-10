@@ -49,13 +49,54 @@ while(nextPageToken)
 	await getVideosDetails(videoList);
 }
 
-//aggregate videos count. It generates 2 objects: aggrByArtistsFrom & aggrByRecordedIn with the below structure:
-//{ country : { videoCount,viewCount,likeCount,dislikeCount,favoriteCount,commentCount,videoIds:[strings]} }
+
 console.log('Data received.');
 
+//aggregate videos count. It generates 2 objects: aggrByArtistsFrom & aggrByRecordedIn with the below structure:
+//{ country : { videoCount,viewCount,likeCount,dislikeCount,favoriteCount,commentCount,videoIds:[strings]} }
+
 console.log('Aggregating data based on tags...');
+
 aggregateVideosPerCountry();
+
 console.log('Aggregation done');
+
+return new Promise(function(resolve, reject) {
+//Write Data to files
+	var json;
+
+	//aggrByArtistsFrom.json
+	
+	json = JSON.stringify(aggrByArtistsFrom);
+	fs.writeFile('aggrByArtistsFrom.json', json, 'utf8', function (err) {
+	    if (err) {
+	        reject(err);
+	    }
+		console.log("Videos Aggregated by 'ArtistsFrom:' tag stored in aggrByArtistsFrom.json");
+	});
+	
+	//aggrByRecordedIn.json
+	
+	json = JSON.stringify(aggrByRecordedIn);
+	fs.writeFile('aggrByRecordedIn.json', json, 'utf8', function (err) {
+	    if (err) {
+	        reject(err);
+	    }
+		console.log("Videos Aggregated by 'RecordedIn:' tag stored in aggrByRecordedIn.json");
+	});
+	
+	//notTaggedYet.json
+	json = JSON.stringify(notTaggedYet);
+	fs.writeFile('notTaggedYet.json', json, 'utf8', function (err) {
+	    if (err) {
+	        reject(err);
+	    }
+	console.log("Videos having missing or none of the required tags ae stored in notTaggedYet.json");
+	});
+	
+	resolve("updated");
+	console.log('All aggregate files are saved');
+});
 
 };
 
@@ -224,36 +265,6 @@ function aggregateVideosPerCountry(){
 		//no tags at all
 		notTaggedYet.push(video.id);
 		}
-	});
-
-	//Write Data to files
-	var json;
-
-	//aggrByArtistsFrom.json
-	console.log("Videos Aggregated by 'ArtistsFrom:' tag stored in aggrByArtistsFrom.json");
-	json = JSON.stringify(aggrByArtistsFrom);
-	fs.writeFile('aggrByArtistsFrom.json', json, 'utf8', function (err) {
-	    if (err) {
-	        return console.log(err);
-	    }
-	});
-	
-	//aggrByRecordedIn.json
-	console.log("Videos Aggregated by 'RecordedIn:' tag stored in aggrByRecordedIn.json");
-	json = JSON.stringify(aggrByRecordedIn);
-	fs.writeFile('aggrByRecordedIn.json', json, 'utf8', function (err) {
-	    if (err) {
-	        return console.log(err);
-	    }
-	});
-	
-	//notTaggedYet.json
-	console.log("Videos having missing or none of the required tags ae stored in notTaggedYet.json");
-	json = JSON.stringify(notTaggedYet);
-	fs.writeFile('notTaggedYet.json', json, 'utf8', function (err) {
-	    if (err) {
-	        return console.log(err);
-	    }
 	});
 	
 }
