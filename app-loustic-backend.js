@@ -8,7 +8,23 @@ const fs = require('fs');
 
 const app = express();
 
-app.get('/loustic-backend/aggregates/run', (req,res) => {
+app.get('/loustic-backend/aggregates', (req,res) => {
+	var json = { 'aggregates' : [
+		{	id : 'by-artists-roots',
+			description: 'Aggregate Loustic Sessions videos based on where artists come from. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code' 
+			},
+		{	id : 'by-recorded-in',
+			description: 'Aggregate Loustic Sessions videos based on where the sessions were recorded. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code' 
+			},
+		{	id : 'not-tagged-yet',
+			description: 'Retruns an array of Loustic sessions videoIds that are not properly tagged yet, thus excluded from aggregation' 
+			}
+		]
+  };
+	res.send(json);
+});
+
+app.put('/loustic-backend/aggregates/run', (req,res) => {
 	ytlsapi.aggregate();
 	res.send('aggregating...');
 });
