@@ -1,7 +1,5 @@
 # custome
-aggrByArtistsFrom.json
-aggrByRecordedIn.json
-notTaggedYet.json
+data/*.json
 
 # Logs
 logs
