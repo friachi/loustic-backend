@@ -32,8 +32,8 @@ nextPageToken = undefined;
 prevPageToken = undefined;
 videosDetails = {};
 videosDetails.results = [];
-aggrByArtistsFrom = {datetime: now, byArtistsFrom: {}};
-aggrByRecordedIn = {datetime: now, byRecordedIn: {}};
+aggrByArtistsFrom = {aggregateId: 'by-artists-roots',datetime: now, aggregate: {}};
+aggrByRecordedIn = {aggregateId: 'by-recorded-in',datetime: now, aggregate: {}};
 notTaggedYet = [];
 
 console.log(`Requesting all uploaded videos on Loustic Sessions (${now})...`);
@@ -194,28 +194,28 @@ function aggregateVideosPerCountry(){
 				var arr = tag.split(':');
 				var country = arr[1];
 				if(country) {
-					if(aggrByArtistsFrom.byArtistsFrom.hasOwnProperty(country)){
+					if(aggrByArtistsFrom.aggregate.hasOwnProperty(country)){
 						//aggregate already exists, thus increment it
 						
-						aggrByArtistsFrom.byArtistsFrom[country].videoCount += 1;
-						aggrByArtistsFrom.byArtistsFrom[country].viewCount += parseInt(video.statistics.viewCount);
-						aggrByArtistsFrom.byArtistsFrom[country].likeCount += parseInt(video.statistics.likeCount);
-						aggrByArtistsFrom.byArtistsFrom[country].dislikeCount += parseInt(video.statistics.dislikeCount);
-						aggrByArtistsFrom.byArtistsFrom[country].favoriteCount += parseInt(video.statistics.favoriteCount);
-						aggrByArtistsFrom.byArtistsFrom[country].commentCount += parseInt(video.statistics.commentCount);
-						aggrByArtistsFrom.byArtistsFrom[country].videoIds.push(video.id);
+						aggrByArtistsFrom.aggregate[country].videoCount += 1;
+						aggrByArtistsFrom.aggregate[country].viewCount += parseInt(video.statistics.viewCount);
+						aggrByArtistsFrom.aggregate[country].likeCount += parseInt(video.statistics.likeCount);
+						aggrByArtistsFrom.aggregate[country].dislikeCount += parseInt(video.statistics.dislikeCount);
+						aggrByArtistsFrom.aggregate[country].favoriteCount += parseInt(video.statistics.favoriteCount);
+						aggrByArtistsFrom.aggregate[country].commentCount += parseInt(video.statistics.commentCount);
+						aggrByArtistsFrom.aggregate[country].videoIds.push(video.id);
 					}
 					else{
 						//aggregate is being added for first time, thus initialize it
-						aggrByArtistsFrom.byArtistsFrom[country] = {};
-						aggrByArtistsFrom.byArtistsFrom[country].videoCount = 1;
-						aggrByArtistsFrom.byArtistsFrom[country].viewCount = parseInt(video.statistics.viewCount);
-						aggrByArtistsFrom.byArtistsFrom[country].likeCount = parseInt(video.statistics.likeCount);
-						aggrByArtistsFrom.byArtistsFrom[country].dislikeCount = parseInt(video.statistics.dislikeCount);
-						aggrByArtistsFrom.byArtistsFrom[country].favoriteCount = parseInt(video.statistics.favoriteCount);
-						aggrByArtistsFrom.byArtistsFrom[country].commentCount = parseInt(video.statistics.commentCount);
-						aggrByArtistsFrom.byArtistsFrom[country].videoIds = [];
-						aggrByArtistsFrom.byArtistsFrom[country].videoIds.push(video.id);
+						aggrByArtistsFrom.aggregate[country] = {};
+						aggrByArtistsFrom.aggregate[country].videoCount = 1;
+						aggrByArtistsFrom.aggregate[country].viewCount = parseInt(video.statistics.viewCount);
+						aggrByArtistsFrom.aggregate[country].likeCount = parseInt(video.statistics.likeCount);
+						aggrByArtistsFrom.aggregate[country].dislikeCount = parseInt(video.statistics.dislikeCount);
+						aggrByArtistsFrom.aggregate[country].favoriteCount = parseInt(video.statistics.favoriteCount);
+						aggrByArtistsFrom.aggregate[country].commentCount = parseInt(video.statistics.commentCount);
+						aggrByArtistsFrom.aggregate[country].videoIds = [];
+						aggrByArtistsFrom.aggregate[country].videoIds.push(video.id);
 					}
 				}
 				else console.log("No country provided on 'ArtistsFrom:', or no colon . VideoId: " + video.id );
@@ -228,28 +228,28 @@ function aggregateVideosPerCountry(){
 				var arr = tag.split(':');
 				var country = arr[1];
 				if(country) {
-					if(aggrByRecordedIn.byRecordedIn.hasOwnProperty(country)){
+					if(aggrByRecordedIn.aggregate.hasOwnProperty(country)){
 						//aggregate already exists, thus increment it
 						
-						aggrByRecordedIn.byRecordedIn[country].videoCount += 1;
-						aggrByRecordedIn.byRecordedIn[country].viewCount += parseInt(video.statistics.viewCount);
-						aggrByRecordedIn.byRecordedIn[country].likeCount += parseInt(video.statistics.likeCount);
-						aggrByRecordedIn.byRecordedIn[country].dislikeCount += parseInt(video.statistics.dislikeCount);
-						aggrByRecordedIn.byRecordedIn[country].favoriteCount += parseInt(video.statistics.favoriteCount);
-						aggrByRecordedIn.byRecordedIn[country].commentCount += parseInt(video.statistics.commentCount);
-						aggrByRecordedIn.byRecordedIn[country].videoIds.push(video.id);
+						aggrByRecordedIn.aggregate[country].videoCount += 1;
+						aggrByRecordedIn.aggregate[country].viewCount += parseInt(video.statistics.viewCount);
+						aggrByRecordedIn.aggregate[country].likeCount += parseInt(video.statistics.likeCount);
+						aggrByRecordedIn.aggregate[country].dislikeCount += parseInt(video.statistics.dislikeCount);
+						aggrByRecordedIn.aggregate[country].favoriteCount += parseInt(video.statistics.favoriteCount);
+						aggrByRecordedIn.aggregate[country].commentCount += parseInt(video.statistics.commentCount);
+						aggrByRecordedIn.aggregate[country].videoIds.push(video.id);
 					}
 					else{
 						//aggregate is being added for first time, thus initialize it
-						aggrByRecordedIn.byRecordedIn[country] = {};
-						aggrByRecordedIn.byRecordedIn[country].videoCount = 1;
-						aggrByRecordedIn.byRecordedIn[country].viewCount = parseInt(video.statistics.viewCount);
-						aggrByRecordedIn.byRecordedIn[country].likeCount = parseInt(video.statistics.likeCount);
-						aggrByRecordedIn.byRecordedIn[country].dislikeCount = parseInt(video.statistics.dislikeCount);
-						aggrByRecordedIn.byRecordedIn[country].favoriteCount = parseInt(video.statistics.favoriteCount);
-						aggrByRecordedIn.byRecordedIn[country].commentCount = parseInt(video.statistics.commentCount);
-						aggrByRecordedIn.byRecordedIn[country].videoIds = [];
-						aggrByRecordedIn.byRecordedIn[country].videoIds.push(video.id);
+						aggrByRecordedIn.aggregate[country] = {};
+						aggrByRecordedIn.aggregate[country].videoCount = 1;
+						aggrByRecordedIn.aggregate[country].viewCount = parseInt(video.statistics.viewCount);
+						aggrByRecordedIn.aggregate[country].likeCount = parseInt(video.statistics.likeCount);
+						aggrByRecordedIn.aggregate[country].dislikeCount = parseInt(video.statistics.dislikeCount);
+						aggrByRecordedIn.aggregate[country].favoriteCount = parseInt(video.statistics.favoriteCount);
+						aggrByRecordedIn.aggregate[country].commentCount = parseInt(video.statistics.commentCount);
+						aggrByRecordedIn.aggregate[country].videoIds = [];
+						aggrByRecordedIn.aggregate[country].videoIds.push(video.id);
 					}
 				}
 				else console.log("No country provided on 'RecordedIn:', or no colon . VideoId: " + video.id );
