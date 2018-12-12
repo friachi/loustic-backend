@@ -4,7 +4,7 @@ An app (node.js) that provides backend services for Loustic sessions
 ## API
 
 1. Run youtube channel aggregation: 
-*PUT* https://loustic.tk/api/aggregates
+*POST* https://loustic.tk/api/aggregates
 
 ```json
 {
@@ -18,24 +18,29 @@ An app (node.js) that provides backend services for Loustic sessions
 *GET* https://loustic.tk/api/aggregates
 
 ```json
-{
-aggregates: [
-{
-	id: "by-artists-roots",
-	description: "Aggregate Loustic Sessions videos based on where artists come from. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code",
-	url: "/api/aggregates/by-artists-roots"
-},
-{
-	id: "by-recorded-in",
-	description: "Aggregate Loustic Sessions videos based on where the sessions were recorded. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code",
-	url: "/api/aggregates/by-recorded-in"
-},
-{
-	id: "not-tagged-yet",
-	description: "Retruns an array of Loustic sessions videoIds that are not properly tagged yet, thus excluded from aggregation",
-	url: "/api/aggregates/not-tagged-yet"
-}
-]
+{  
+   aggregates:[  
+      {  
+         id:"by-artists-roots",
+         description:"Aggregate of Loustic Sessions videos based on where artists come from. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code",
+         url:"/api/aggregates/by-artists-roots"
+      },
+      {  
+         id:"by-recorded-in",
+         description:"Aggregate of Loustic Sessions videos based on where the sessions were recorded. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code",
+         url:"/api/aggregates/by-recorded-in"
+      },
+      {  
+         id:"by-genre",
+         description:"Aggregate of Loustic Sessions videos based on musical genres",
+         url:"/api/aggregates/by-genre"
+      },
+      {  
+         id:"not-tagged-yet",
+         description:"Retuns an array of Loustic sessions videoIds that are not properly tagged yet, thus excluded from aggregation",
+         url:"/api/aggregates/not-tagged-yet"
+      }
+   ]
 }
 ```
 
@@ -457,4 +462,33 @@ aggregates: [
 }
 ```
 
+4. Get a single aggregate by id, then filter on one item
+*GET* https://loustic.tk/api/aggregates/by-genre/jazz
 
+```json
+{  
+   aggregateId:"by-genre",
+   datetime:"2018-12-12T23:23:24+00:00",
+   jazz:{  
+      videoCount:11,
+      viewCount:11372,
+      likeCount:174,
+      dislikeCount:3,
+      favoriteCount:0,
+      commentCount:12,
+      videoIds:[  
+         "SoGZBAV5pG8",
+         "qA9wmcleksQ",
+         "NSu-xye0Geg",
+         "_sYiJGpTQyI",
+         "tL0Nu8Bkabk",
+         "hrJR8ciqz6k",
+         "fMK1sgi93cM",
+         "cEfRZOSbU-o",
+         "AYhz8AacHd0",
+         "e3047uabiRo",
+         "swUtB5oMxlk"
+      ]
+   }
+}
+```
