@@ -1,0 +1,70 @@
+Serving https (for lightsail with bitnami & nodejs
+---------------------------------------------------
+https://docs.bitnami.com/google/how-to/generate-install-lets-encrypt-ssl/
+
+1.Get a static IP (52.47.42.144)
+2.Get a domain (loustic.tk)
+3.Connect them and make sure it works
+
+4. Install The Lego Client
+> cd /tmp
+> curl -s https://api.github.com/repos/xenolf/lego/releases/latest | grep browser_download_url | grep linux_amd64 | cut -d '"' -f 4 | wget -i -
+> tar xf lego_vX.Y.Z_linux_amd64.tar.gz
+> sudo mv lego /usr/local/bin/lego
+
+5.Generate A Let’s Encrypt Certificate For Your Domain
+
+stop> sudo /opt/bitnami/ctlscript.sh stop
+> sudo lego --email="riachi@gmail.com" --domains="loustic.tk" --path="/etc/lego" run
+This will generate DOMAIN.crt & DOMAIN.key in /etc/lego/certificates
+
+6.Configure The Web Server To Use The Let’s Encrypt Certificate
+> sudo mv /opt/bitnami/apache2/conf/server.crt /opt/bitnami/apache2/conf/server.crt.old
+> sudo mv /opt/bitnami/apache2/conf/server.key /opt/bitnami/apache2/conf/server.key.old
+> sudo mv /opt/bitnami/apache2/conf/server.csr /opt/bitnami/apache2/conf/server.csr.old
+> sudo ln -s /etc/lego/certificates/DOMAIN.key /opt/bitnami/apache2/conf/server.key
+> sudo ln -s /etc/lego/certificates/DOMAIN.crt /opt/bitnami/apache2/conf/server.crt
+> sudo chown root:root /opt/bitnami/apache2/conf/server*
+> sudo chmod 600 /opt/bitnami/apache2/conf/server*
+restart> sudo /opt/bitnami/ctlscript.sh start
+
+7. test
+https://loustic.tk
+
+
+8. set a script to autorenw the certificate each month
+
+> create the script: /etc/lego/renew-certificate.sh:
+sudo /opt/bitnami/ctlscript.sh stop apache
+sudo /usr/local/bin/lego --email="riachi@gmail.com" --domains="loustic.tk" --path="/etc/lego" renew
+sudo /opt/bitnami/ctlscript.sh start apache
+
+> chmod +x /etc/lego/renew-certificate.sh
+
+> sudo crontab -e
+0 0 1 * * /etc/lego/renew-certificate.sh 2> /dev/null
+
+
+Create custom node.js application
+---------------------------------
+https://docs.bitnami.com/aws/infrastructure/nodejs/administration/create-custom-application-nodejs/
+
+1. prepare folders
+sudo mkdir -p /opt/bitnami/apps/loustic-backend
+sudo mkdir /opt/bitnami/apps/loustic-backend/conf
+sudo mkdir /opt/bitnami/apps/loustic-backend/htdocs
+
+2. prepare config
+> create file '/opt/bitnami/apps/loustic-backend/conf/httpd-prefix.conf', with below line in content:
+Include "/opt/bitnami/apps/loustic-backend/conf/httpd-app.conf"
+> create file '/opt/bitnami/apps/loustic-backend/conf/httpd-app.conf', with below 2 lines in content (port should be the one you will use in ur app:
+ProxyPass / http://127.0.0.1:8080/
+ProxyPassReverse / http://127.0.0.1:8080/
+> in appache config '/opt/bitnami/apache2/conf/bitnami/bitnami-apps-prefix.conf', add the below line at the end:
+Include "/opt/bitnami/apps/loustic-backend/conf/httpd-prefix.conf"
+restart> sudo /opt/bitnami/ctlscript.sh restart apache
+start >  start your app using sudo
+
+==> At this moment your app is accessible over HTTPS
+
+
