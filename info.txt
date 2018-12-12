@@ -63,7 +63,7 @@ ProxyPassReverse / http://127.0.0.1:8080/
 > in appache config '/opt/bitnami/apache2/conf/bitnami/bitnami-apps-prefix.conf', add the below line at the end:
 Include "/opt/bitnami/apps/loustic-backend/conf/httpd-prefix.conf"
 restart> sudo /opt/bitnami/ctlscript.sh restart apache
-start >  start your app using sudo
+start >  sudo forever start app-loustic-backend.js
 
 ==> At this moment your app is accessible over HTTPS
 
