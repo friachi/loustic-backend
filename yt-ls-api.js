@@ -17,6 +17,7 @@ var videosDetails = {};
 videosDetails.results = [];
 var aggrByArtistsFrom = {};
 var aggrByRecordedIn = {};
+var aggrByGenre = {};
 var notTaggedYet = [];
 var now;
 
@@ -34,6 +35,7 @@ videosDetails = {};
 videosDetails.results = [];
 aggrByArtistsFrom = {aggregateId: 'by-artists-roots',datetime: now, aggregate: {}};
 aggrByRecordedIn = {aggregateId: 'by-recorded-in',datetime: now, aggregate: {}};
+aggrByGenre = {aggregateId: 'by-genre',datetime: now, aggregate: {}};
 notTaggedYet = [];
 
 console.log(`Requesting all uploaded videos on Loustic Sessions (${now})...`);
@@ -60,6 +62,7 @@ console.log('Data received.');
 console.log('Aggregating data based on tags...');
 
 aggregateVideosPerCountry();
+console.log(aggrByGenre);
 
 console.log('Aggregation done');
 
@@ -85,6 +88,16 @@ return new Promise(function(resolve, reject) {
 	        reject(err);
 	    }
 		console.log("Videos Aggregated by 'RecordedIn:' tag stored in aggrByRecordedIn.json");
+	});
+
+	//aggrByGenre.json
+	
+	json = JSON.stringify(aggrByGenre);
+	fs.writeFile('./data/aggrByGenre.json', json, 'utf8', function (err) {
+	    if (err) {
+	        reject(err);
+	    }
+		console.log("Videos Aggregated by genre-related tags are stored in aggrByGenre.json");
 	});
 	
 	//notTaggedYet.json
@@ -174,7 +187,7 @@ function aggregateVideosPerCountry(){
 //will populate the below objects
 //var aggrByArtistsFrom = {};
 //var aggrByRecordedIn = {};
-	
+	var genres = ['african','arabic','asian','blues','soul','country','electronic','folk','hip hop','jazz','latin','pop','r&b','rock','classical','rap','traditional','indie','arab'];
 	//go through all videos item
 
 	videosDetails.results.forEach(function(video) {
@@ -182,6 +195,7 @@ function aggregateVideosPerCountry(){
 		if(tags){
 			var ArtistsFromFound = false;
 			var RecordedInFound = false;
+			var GenreFound = false;
 			var lastTagIndex = tags.length - 1;
 			var tagIndex = 0;
 			//go through all tags of this video
@@ -256,8 +270,41 @@ function aggregateVideosPerCountry(){
 			}
 			//// end RecordedIn
 			
+			//start Genre
+			//check if video has  one or many musical genre tag, if yes, add it to aggregate
+			else if(genres.includes(tag.toLowerCase())) {
+					GenreFound = true;
+					var t = tag.toLowerCase();
+				
+					if(aggrByGenre.aggregate.hasOwnProperty(t)){
+						//aggregate already exists, thus increment it
+						
+						aggrByGenre.aggregate[t].videoCount += 1;
+						aggrByGenre.aggregate[t].viewCount += parseInt(video.statistics.viewCount);
+						aggrByGenre.aggregate[t].likeCount += parseInt(video.statistics.likeCount);
+						aggrByGenre.aggregate[t].dislikeCount += parseInt(video.statistics.dislikeCount);
+						aggrByGenre.aggregate[t].favoriteCount += parseInt(video.statistics.favoriteCount);
+						aggrByGenre.aggregate[t].commentCount += parseInt(video.statistics.commentCount);
+						aggrByGenre.aggregate[t].videoIds.push(video.id);
+					}
+					else{
+						//aggregate is being added for first time, thus initialize it
+						aggrByGenre.aggregate[t] = {};
+						aggrByGenre.aggregate[t].videoCount = 1;
+						aggrByGenre.aggregate[t].viewCount = parseInt(video.statistics.viewCount);
+						aggrByGenre.aggregate[t].likeCount = parseInt(video.statistics.likeCount);
+						aggrByGenre.aggregate[t].dislikeCount = parseInt(video.statistics.dislikeCount);
+						aggrByGenre.aggregate[t].favoriteCount = parseInt(video.statistics.favoriteCount);
+						aggrByGenre.aggregate[t].commentCount = parseInt(video.statistics.commentCount);
+						aggrByGenre.aggregate[t].videoIds = [];
+						aggrByGenre.aggregate[t].videoIds.push(video.id);
+					}
+				
+			}
+			//// end Genre
+
 			//check if some or all required tags not found, if so, store that video link for manual correction
-			if((!ArtistsFromFound || !RecordedInFound) && tagIndex == lastTagIndex)
+			if((!ArtistsFromFound || !RecordedInFound || !GenreFound) && tagIndex == lastTagIndex)
 					notTaggedYet.push(video.id);
 
 			tagIndex++;		
