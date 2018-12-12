@@ -10,15 +10,15 @@ aggregates.get('/', (req,res,next) => {
 	var json = { 'aggregates' : [
 		{	id : 'by-artists-roots',
 			description: 'Aggregate Loustic Sessions videos based on where artists come from. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code',
-			url: '/lousticapi/aggregates/by-artists-roots'
+			url: '/api/aggregates/by-artists-roots'
 			},
 		{	id : 'by-recorded-in',
 			description: 'Aggregate Loustic Sessions videos based on where the sessions were recorded. Returns json object with aggregate keys based on ISO 3166-1 Alpha-3 code',
-			url: '/lousticapi/aggregates/by-recorded-in' 
+			url: '/api/aggregates/by-recorded-in' 
 			},
 		{	id : 'not-tagged-yet',
 			description: 'Retruns an array of Loustic sessions videoIds that are not properly tagged yet, thus excluded from aggregation',
-			url: '/lousticapi/aggregates/not-tagged-yet'
+			url: '/api/aggregates/not-tagged-yet'
 			}
 		]
   };
@@ -55,7 +55,7 @@ aggregates.put('/', (req,res,nex) => {
         var r = {
 			code : '200',
 			message: 'All aggregates have been updated',
-			url: '/lousticapi/aggregates'
+			url: '/api/aggregates'
 		};
 		res.send(r);
 		

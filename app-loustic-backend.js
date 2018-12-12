@@ -6,8 +6,8 @@ const app = express();
 
 
 //forwarding routes
-const lousticapi = require('./routes/lousticapi.js');
-app.use('/lousticapi',lousticapi);
+const lousticapi = require('./routes/api.js');
+app.use('/api',lousticapi);
 
 
 //current Route
