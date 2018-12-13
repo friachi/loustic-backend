@@ -7,7 +7,8 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "googleapis": "^36.0.0",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "pubsubhubbub": "^0.4.1"
   },
   "devDependencies": {},
   "scripts": {
