@@ -62,7 +62,6 @@ console.log('Data received.');
 console.log('Aggregating data based on tags...');
 
 aggregateVideosPerCountry();
-console.log(aggrByGenre);
 
 console.log('Aggregation done');
 

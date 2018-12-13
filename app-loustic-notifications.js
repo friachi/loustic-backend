@@ -2,7 +2,8 @@ var pubSubHubbub = require("pubsubhubbub");
 
     
 var pubsub = pubSubHubbub.createServer({
-        callbackUrl: "https://loustic.tk:9090/notifications"
+        callbackUrl: "http://loustic.tk/notifications",
+        secret: "change me!"
     });
     
     topic = "https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCHziILhb2V5ahNIMSmaOAbQ";
