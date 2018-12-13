@@ -3,6 +3,64 @@ An app (node.js) that provides backend services for Loustic sessions
 
 ## API
 
+### Resource: videos
+
+1. Get all loustic sessions videos details
+*GET* https://loustic.tk/api/videos
+
+```json
+{  
+   datetime:"2018-12-13T22:00:57+01:00",
+   results:[  
+      {  
+         id:"roQb5HIQXB8",
+         snippet:{  
+            publishedAt:"2018-11-29T13:49:06.000Z",
+            title:"Charlotte Grace | Wiseman | Loustic Sessions",
+            description:"Charlotte Grace playing "            Wiseman" live for Loustic Sessions Shot in Paris,
+            April 9,
+            2018            Subscribe to the channel:            http:            //bit.ly/2FWcNhr Vocals:            Charlotte Wacker Guitar:            Keni Arifi Cajón:            Lukas Knoepfel Images:            Julien Nehring Sound:            Fahed Al Riachi Produced by:            Julien Nehring Photos by Yosri Harzallah:            https:            //goo.gl/SW7ih2 Special thanks to:            Mon coeur Belleville https:            //www.facebook.com/lousticsessions https:            //www.facebook.com/charlottegraceofficialmusic http://lnk.site/charlottegracebirth",
+            thumbnails:{  
+               standard:{  
+                  url:"https://i.ytimg.com/vi/roQb5HIQXB8/sddefault.jpg",
+                  width:640,
+                  height:480
+               }
+            },
+            tags:[  
+               "Live",
+               "Recording",
+               "Sessions",
+               "ArtistsFrom:CHE",
+               "RecordedIn:FRA",
+               "Year:2018"
+            ]
+         },
+         statistics:{  
+            viewCount:"255",
+            likeCount:"16",
+            dislikeCount:"0",
+            favoriteCount:"0",
+            commentCount:"0"
+         }
+      },
+      {  
+         id:"roQb5HIQXB8",
+         ....,
+      }
+   ]
+ }   
+      
+
+```
+
+2. Get one video details by videoId
+*GET* https://loustic.tk/api/videos/roQb5HIQXB8
+
+
+
+### Resource: aggregates
+
 1. Run youtube channel aggregation: 
 *POST* https://loustic.tk/api/aggregates
 
