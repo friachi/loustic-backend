@@ -5,8 +5,8 @@ An app (node.js) that provides backend services for Loustic sessions
 
 ### Resource: videos
 
-1. Get all loustic sessions videos details
-*GET* https://loustic.tk/api/videos
+1. Get all loustic sessions videos details  
+**GET** https://loustic.tk/api/videos
 
 ```json
 {  
@@ -54,15 +54,15 @@ An app (node.js) that provides backend services for Loustic sessions
 
 ```
 
-2. Get one video details by videoId
-*GET* https://loustic.tk/api/videos/roQb5HIQXB8
+2. Get one video details by videoId  
+**GET** https://loustic.tk/api/videos/roQb5HIQXB8
 
 
 
 ### Resource: aggregates
 
-1. Run youtube channel aggregation: 
-*POST* https://loustic.tk/api/aggregates
+1. Run youtube channel aggregation:   
+**POST** https://loustic.tk/api/aggregates
 
 ```json
 {
@@ -72,8 +72,8 @@ An app (node.js) that provides backend services for Loustic sessions
 }
 ```
 
-2. List all aggregates
-*GET* https://loustic.tk/api/aggregates
+2. List all aggregates:  
+**GET** https://loustic.tk/api/aggregates
 
 ```json
 {  
@@ -102,8 +102,8 @@ An app (node.js) that provides backend services for Loustic sessions
 }
 ```
 
-3. Get a single aggregate by id
-*GET* https://loustic.tk/api/aggregates/by-artists-roots
+3. Get a single aggregate by id:  
+**GET** https://loustic.tk/api/aggregates/by-artists-roots
 
 ```json
 {  
@@ -520,8 +520,8 @@ An app (node.js) that provides backend services for Loustic sessions
 }
 ```
 
-4. Get a single aggregate by id, then filter on one item
-*GET* https://loustic.tk/api/aggregates/by-genre/jazz
+4. Get a single aggregate by id, then filter on one item:  
+**GET** https://loustic.tk/api/aggregates/by-genre/jazz
 
 ```json
 {  
