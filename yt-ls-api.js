@@ -31,7 +31,7 @@ now = moment().format();
 //reset vars
 nextPageToken = undefined;
 prevPageToken = undefined;
-videosDetails = {};
+videosDetails = {datetime: now};
 videosDetails.results = [];
 aggrByArtistsFrom = {aggregateId: 'by-artists-roots',datetime: now, aggregate: {}};
 aggrByRecordedIn = {aggregateId: 'by-recorded-in',datetime: now, aggregate: {}};
@@ -109,6 +109,15 @@ return new Promise(function(resolve, reject) {
 	console.log("Videos having missing or none of the required tags ae stored in notTaggedYet.json");
 	});
 	
+	//videosDetails.json
+	json = JSON.stringify(videosDetails);
+	fs.writeFile('./data/videosDetails.json', json, 'utf8', function (err) {
+	    if (err) {
+	        reject(err);
+	    }
+	console.log("All Videos details are stored in videosDetails.json");
+	});
+
 	resolve("updated");
 	console.log('All aggregate files are saved');
 });
