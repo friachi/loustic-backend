@@ -1,7 +1,26 @@
 # loustic-backend
-An app (node.js) that provides backend services for Loustic sessions
+A set of backend services for Loustic Sessions applications
 
 ## API
+
+### Refresh data
+
+The availability of API resources on server-side relies on /api/refresh-data action that will pull an aggregate data from youtube and other sources and make data avaiable for REST GET calls.  
+This refresh-data action is performed automatically whenever a loustic session video is updated (upload, title or description change). This auto-refresh mechansim is implemented using pubsubhubbub client subscribed to  
+Youtube notifications (atom feeds) from Loustic Sessions channel.  
+It is still possible to refresh-data manually/on-demand:  
+**POST** https://loustic.tk/api/refresh-data
+```json
+{
+    "code": "200",
+    "message": "All data has been refreshed",
+    "url": [
+        "/api/aggregates",
+        "/api/videos"
+    ]
+}
+```
+
 
 ### Resource: videos
 
@@ -72,7 +91,7 @@ An app (node.js) that provides backend services for Loustic sessions
 }
 ```
 
-2. List all aggregates:  
+1. List all aggregates:  
 **GET** https://loustic.tk/api/aggregates
 
 ```json
@@ -102,7 +121,7 @@ An app (node.js) that provides backend services for Loustic sessions
 }
 ```
 
-3. Get a single aggregate by id:  
+2. Get a single aggregate by id:  
 **GET** https://loustic.tk/api/aggregates/by-artists-roots
 
 ```json
@@ -520,7 +539,7 @@ An app (node.js) that provides backend services for Loustic sessions
 }
 ```
 
-4. Get a single aggregate by id, then filter on one item:  
+3. Get a single aggregate by id, then filter on one item:  
 **GET** https://loustic.tk/api/aggregates/by-genre/jazz
 
 ```json

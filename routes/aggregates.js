@@ -1,6 +1,5 @@
 //aggregates.js routes
 const express = require('express');
-const ytlsapi = require('../yt-ls-api.js');
 const fs = require('fs');
 
 const aggregates = express.Router();
@@ -92,20 +91,5 @@ aggregates.get('/:id/:item', (req,res,nex) => {
 	
 });
 
-aggregates.post('/', (req,res,nex) => {
-	
-	var aggregatePromise = ytlsapi.aggregate();
-    aggregatePromise.then(function(result) {
-        var r = {
-			code : '200',
-			message: 'All aggregates have been updated',
-			url: '/api/aggregates'
-		};
-		res.send(r);
-		
-    }, function(err) {
-        res.status(500).send(err);
-    })
-});
 
 module.exports = aggregates;
