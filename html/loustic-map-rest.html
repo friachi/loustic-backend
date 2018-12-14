@@ -2,7 +2,7 @@
 <html>
  <head>
  <title>Get videos and plot them on world map</title>
-	 <script src="jquery.min.js"></script>
+	 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	 <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady">  </script>
 	 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 	 <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
@@ -30,8 +30,7 @@ button {
   <body>
 	<div style="text-align:center;">
 	  <input style="margin:auto;" type="radio" id="r1_ArtistsFrom" name="mapBy" value="ArtistsFrom" checked="checked"> By Artists origins</input>
-	  <input style="margin:auto;" type="radio" id="r2_RecordedIn" name="mapBy" value="RecordedIn"> By where it was recorded</input>
-	        |      
+	  <input style="margin:auto;" type="radio" id="r2_RecordedIn" name="mapBy" value="RecordedIn"> By where it was recorded</input>|
 	  <input style="margin:auto;" type="radio" id="r3_sessionCount" name="colorBy" value="colorSessions" checked="checked"> Color by Session Count</input>
 	  <input style="margin:auto;" type="radio" id="r4_viewCount" name="colorBy" value="colorViews"> Color by View Count</input>
 	<br><br>
