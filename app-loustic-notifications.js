@@ -2,8 +2,8 @@ var pubSubHubbub = require("pubsubhubbub");
 
     
 var pubsub = pubSubHubbub.createServer({
-        callbackUrl: "http://loustic.tk/notifications",
-        secret: "change me!"
+        callbackUrl: "https://loustic.tk/notifications"
+        //secret: "change me!"
     });
     
     topic = "https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCHziILhb2V5ahNIMSmaOAbQ";
@@ -36,10 +36,10 @@ pubsub.on("error", function(error){
 });
 
 pubsub.on("feed", function(data){
-    console.log(data)
+    //console.log(data)
     console.log(data.feed.toString());
 
-    pubsub.unsubscribe(topic, hub);
+    //pubsub.unsubscribe(topic, hub);
 });
 
 pubsub.on("listen", function(){
