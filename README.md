@@ -5,10 +5,8 @@ A set of backend services for Loustic Sessions applications
 
 ### Refresh data
 
-The availability of API resources on server-side relies on /api/refresh-data action that will pull an aggregate data from youtube and other sources and make data avaiable for REST GET calls.  
-This refresh-data action is performed automatically whenever a loustic session video is updated (upload, title or description change). This auto-refresh mechansim is implemented using pubsubhubbub client subscribed to  
-Youtube notifications (atom feeds) from Loustic Sessions channel.  
-It is still possible to refresh-data manually/on-demand:  
+The availability of API resources on server-side relies on /api/refresh-data action that will pull an aggregate data from youtube and other sources and make data avaiable for REST GET calls. This refresh-data action is performed automatically whenever a loustic session video is updated (upload, title or description change). This auto-refresh mechansim is implemented using pubsubhubbub client subscribed to Youtube notifications (atom feeds) from Loustic Sessions channel.  
+Yet, it is still possible to refresh-data manually/on-demand:  
 **POST** https://loustic.tk/api/refresh-data
 ```json
 {
