@@ -3,10 +3,12 @@ A set of backend services for Loustic Sessions applications
 
 ## API
 
+Locally running on 8080
+
 ### Refresh data
 
-The availability of API resources on server-side relies on /api/refresh-data action that will pull an aggregate data from youtube and other sources and make data avaiable for REST GET calls. This refresh-data action is performed automatically whenever a loustic session video is updated (upload, title or description change). This auto-refresh mechansim is implemented using pubsubhubbub client subscribed to Youtube notifications (atom feeds) from Loustic Sessions channel.  
-Yet, it is still possible to refresh-data manually/on-demand:  
+The data exposed by the API is aggregated by a background process running on the server, to trigger this process and thus refresh the data:  
+
 **POST** https://loustic.tk/api/refresh-data
 ```json
 {
@@ -19,6 +21,8 @@ Yet, it is still possible to refresh-data manually/on-demand:
 }
 ```
 
+NOTE: this action is performed automatically any time a youtube video on Loustic Sessions channel gets uploaded or updated (title or description)
+Check section 'Notifications' for more info
 
 ### Resource: videos
 
@@ -567,3 +571,9 @@ Yet, it is still possible to refresh-data manually/on-demand:
    }
 }
 ```
+
+## Notifications
+
+Locally running on 9090
+
+This is a background process that auto-refresh data, implemented using a pubsubhubbub client listening on port 9090, subscribed to Loustic Sessions channel Youtube notifications (atom feeds). when notification are received from youtube, it sends a POST /api/refresh-data, thus refreshing and aggregating all data to be exposed by the API
