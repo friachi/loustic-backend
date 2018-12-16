@@ -52,6 +52,7 @@ pubsub.on("feed", function(data){
     console.log("Just got a notfication from Youtube!")
     console.log(data.feed.toString());
     refreshData();
+    console.log("Done!")
 
     //pubsub.unsubscribe(topic, hub);
 });
