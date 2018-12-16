@@ -1,4 +1,16 @@
-var pubSubHubbub = require("pubsubhubbub");
+const pubSubHubbub = require("pubsubhubbub");
+const axios = require('axios')
+
+
+const refreshData = async () => {
+  try {
+    console.log('refreshing data...')
+    return await axios.post('https://loustic.tk/api/refresh-data')
+  } catch (error) {
+    console.error('Error while refreshing data');
+    console.error(error)
+  }
+}
 
     
 var pubsub = pubSubHubbub.createServer({
@@ -37,12 +49,14 @@ pubsub.on("error", function(error){
 
 pubsub.on("feed", function(data){
     //console.log(data)
+    console.log("Just got a notfication from Youtube!")
     console.log(data.feed.toString());
+    refreshData();
 
     //pubsub.unsubscribe(topic, hub);
 });
 
 pubsub.on("listen", function(){
-    console.log("Server listening on port %s", pubsub.port);
+    console.log("Listening for Youtube notifications on port %s", pubsub.port);
     pubsub.subscribe(topic, hub);
 });
