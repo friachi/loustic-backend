@@ -8,7 +8,7 @@
 	<style>
 
 body {
-    font-family: 'Poppins';font-size: 16px;
+    font-family: 'Poppins';font-size: 18px;
 	}
 	
 form {
@@ -70,41 +70,81 @@ form > .button:hover {
   </head>
   <body style="text-align: center;">
 	<div id="search" style="width: 1000; hight:700;">
-	  <form method="post">
-		  <input type="text" class="textbox" placeholder="Search">
-		  <input title="Search" value="Search" type="submit" class="button">
+	  <form>
+		  <input id="searchValue" type="text" class="textbox" placeholder="Search" value="jazz">
+		  <input id="searchButton" title="Search" value="Search" class="button">
 	 </form>
 	 <br/>
 	 <br/>
 	</div>
-	<div id="video">Hover over a video...</div>
+	<div id="video" style=" color: #C20430;">Fly over a video...</div>
 	<br/>
     <div id="container" style="margin:auto;" style="position: absolute; width: 80%; height: 50%;">
     </div>           
 	 <script>
 	 
-	 var searchPattern = "fahed"
-	 var width = 1000,
+	 //open page with a prepared search
+	 var searchPattern = "jazz";
+	 var limit=25;
+	 search(searchPattern);
+	 
+	 
+	 
+	 //fire new search based on search patter
+	 $(document).ready(function() {
+		$("#searchButton").click(function(){
+			searchPattern = $('#searchValue').val();
+			$( "#container" ).empty();
+			search(searchPattern)
+		}); 
+	});
+	
+	$(document).keypress(function(e) {
+		if(e.which == 13) {
+			searchPattern = $('#searchValue').val();
+			$( "#container" ).empty();
+			search(searchPattern)
+		}
+	});	
+	 
+	
+	
+	
+function search(pattern)
+{	 
+	//get data and draw 
+	$.ajax({ 
+	   type: "GET",
+	   dataType: "json",
+	   url: "https://loustic.tk/api/videos?search="+searchPattern+"&limit="+limit,
+	   success: function(response){       
+		
+		if(response.totalFound == 0)
+		{
+		$( "#video" ).text("oops, no matches are found!");
+		return;
+		}
+		
+		if(response.totalFound > limit)
+		{
+			$( "#video" ).text("We've found "+response.totalFound+" total mathces (showing only "+limit+")");
+		}
+		else{
+			$( "#video" ).text("We've found "+response.totalFound+" total mathces!");
+		}
+		
+		 var width = 1000,
 		 height = 700;
 	 
-	 var svg = d3.select("#container")
+		var svg = d3.select("#container")
 		.append("svg")
 		.attr("height",height)
 		.attr("width",width)
 		.append("g")
 		.attr("transform","translate(0,0)")
-	
-	
-	 
-	//get data and draw 
-	$.ajax({ 
-	   type: "GET",
-	   dataType: "json",
-	   url: "https://loustic.tk/api/videos?search="+searchPattern+"&limit=50",
-	   success: function(response){        
 		 
 		 //calculate min & max view count to use for setting circle radiuc range
-		 console.log(response);
+		 
 		 var temp = [];
 		 response.results.forEach(function(item){
 			temp.push(+item.statistics.viewCount)
@@ -113,7 +153,7 @@ form > .button:hover {
 		 
 		 var min = d3.min(temp,function(d){return d;});
 		 var max = d3.max(temp,function(d){return d;});
-		 var radiusScale = d3.scaleSqrt().range([40,70]).domain([min,max]);
+		 var radiusScale = d3.scaleSqrt().range([60,120]).domain([min,max]);
 	 
 	 
 		//create defs to hold thumbnails of videos
@@ -144,7 +184,7 @@ form > .button:hover {
 			.attr("preserveAspectRatio","none")
 			.attr("xmlns:xlink","http://www.w3.org/1999/xlink")
 			.attr("xlink:href",function(d){
-				return d.snippet.thumbnails.standard.url;
+				return d.snippet.thumbnails.high.url;
 			})
 			
 		 
@@ -159,7 +199,7 @@ form > .button:hover {
 				return "url(#"+d.id+")"
 			})
 			.on("click",function(d){
-				window.open("https://www.youtube.com/watch?v="+d.id, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
+				window.open("https://www.youtube.com/watch?v="+d.id, '_blank', 'height=750,width=920,scrollbars=yes,status=no,menubar=no');
 			})
 			.on('mouseover', showDetail)
 			.on('mouseout', hideDetail);
@@ -189,14 +229,14 @@ form > .button:hover {
  
     	function hideDetail(d) {
 		d3.select(this).style("cursor", "default");
-		d3.select("#video").text("Hover over a video...");	
+		d3.select("#video").text("Fly over a video...");	
 			
 		}
 		
 		
 	   }
 	});
-	 
+}
 	</script>
   </body>
 </html>
