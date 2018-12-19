@@ -179,7 +179,7 @@ function getVideosDetails(viedoIds) {
       var requestOptions = {
         id: viedoIds,
         part: 'id,statistics,snippet',
-        fields: 'items(id,statistics,snippet(title,description,tags,publishedAt,thumbnails(standard)))'
+        fields: 'items(id,statistics,snippet(title,description,tags,publishedAt,thumbnails(standard,high,maxres)))'
        };
        
        return youtube.videos.list(requestOptions)
