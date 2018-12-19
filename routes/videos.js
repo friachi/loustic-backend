@@ -163,8 +163,12 @@ function search(obj,query)
 			
 		});
 	
-	
-	return { totalFound:found.length, searchCriteria: query , searchableFields: ['title','description','tags'], results: found };
+	var setOfResults = found;
+	if(query.limit)
+	{
+		setOfResults = found.slice(1, query.limit);
+	}
+	return { totalFound:found.length, searchCriteria: query , searchableFields: ['title','description','tags'], results: setOfResults };
 }
 
 
