@@ -100,7 +100,7 @@ form > .button:hover {
 	$.ajax({ 
 	   type: "GET",
 	   dataType: "json",
-	   url: "https://loustic.tk/api/videos?search="+searchPattern,
+	   url: "https://loustic.tk/api/videos?search="+searchPattern+"&limit=10",
 	   success: function(response){        
 		 
 		 //calculate min & max view count to use for setting circle radiuc range

@@ -166,7 +166,7 @@ function search(obj,query)
 	var setOfResults = found;
 	if(query.limit)
 	{
-		setOfResults = found.slice(1, query.limit);
+		setOfResults = found.slice(0, query.limit);
 	}
 	return { totalFound:found.length, searchCriteria: query , searchableFields: ['title','description','tags'], results: setOfResults };
 }
