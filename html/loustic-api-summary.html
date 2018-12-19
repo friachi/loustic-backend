@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+ <head>
+ <title>Get videos and plot them on world map</title>
+	<style type="text/css">
+		table.tableizer-table {
+			font-size: 12px;
+			border: 1px solid #CCC; 
+			font-family: Arial, Helvetica, sans-serif;
+		} 
+		.tableizer-table td {
+			padding: 4px;
+			margin: 3px;
+			border: 1px solid #CCC;
+		}
+		.tableizer-table th {
+			background-color: #104E8B; 
+			color: #FFF;
+			font-weight: bold;
+		}
+	</style>
+ </head>
+  <body>
+<h2>https://loustic.tk/api</h2>
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Resource</th><th>Method</th><th>URL</th><th>Description</th><th>Example</th></tr></thead><tbody>
+ <tr><td>Videos</td><td>GET</td><td>/api/videos</td><td>Get all videos</td><td><a href="https://loustic.tk/api/videos">https://loustic.tk/api/videos</a></td></tr>
+ <tr><td>Videos</td><td>GET</td><td>/api/videos/{id}</td><td>Get a video by id {id}</td><td><a href="https://loustic.tk/api/videos/roQb5HIQXB8">https://loustic.tk/api/videos/roQb5HIQXB8</a></td></tr>
+ <tr><td>Videos</td><td>GET</td><td>/api/videos?search={pattern}&fields={title,description,tags}</td><td>Get videos matching the search {pattern}, and optionally retrict search into 1 or many of the listed fields</td><td><a href="https://loustic.tk/api/videos?search=campus">https://loustic.tk/api/videos?search=campus</a><br/><a href="https://loustic.tk/api/videos?search=cover&fields=title">https://loustic.tk/api/videos?search=cover&fields=title</a><br/><a href="https://loustic.tk/api/videos?search=%20oud&fields=description,tags">https://loustic.tk/api/videos?search=%20oud&fields=description,tags</a></td></tr>
+ <tr><td>Aggregates</td><td>GET</td><td>/api/aggregates</td><td>Get list of available aggregates</td><td><a href="https://loustic.tk/api/aggregates">https://loustic.tk/api/aggregates</a></td></tr>
+ <tr><td>Aggregates</td><td>GET</td><td>/api/aggregates/{aggregateId}</td><td>Get one aggregate by {aggregateId}. Possible ids: by-artists-roots, by-recorded-in,by-genre,not-tagged-yet</td><td><a href="https://loustic.tk/api/aggregates/by-artists-roots">https://loustic.tk/api/aggregates/by-artists-roots</a></td></tr>
+ <tr><td>Aggregates</td><td>GET</td><td>/api/aggregates/{aggregateId}/{aggregateItem}</td><td>Get one item of a given aggregate.</td><td><a href="https://loustic.tk/api/aggregates/by-genre/jazz">https://loustic.tk/api/aggregates/by-genre/jazz</a></td></tr>
+ <tr><td>API</td><td>POST</td><td>/api/refresh-data</td><td>Resource controller to refresh all data from Youtube (or other sources)</td><td></td></tr>
+</tbody></table>
+    
+    </body>
+</html>
