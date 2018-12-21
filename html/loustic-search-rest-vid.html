@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+ <head>
+ <title>Search</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+	<style>
+
+body {
+    font-family: 'Poppins';font-size: 18px;
+	}
+	
+form {
+  outline: 0;
+  display: inline-block;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+form > .textbox {
+  outline: 0;
+  height: 25px;
+  width: 244px;
+  line-height: 42px;
+  padding: 0 16px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #212121;
+  border: 0;
+  float: left;
+  font-family: 'Poppins';
+  -webkit-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+
+form > .textbox:focus {
+  outline: 0;
+  background-color: #FFF;
+}
+
+form > .button {
+  outline: 0;
+  background: none;
+  background-color: rgba(38, 50, 56, 0.8);
+  float: left;
+  height: 25px;
+  width: 55px;
+  text-align: center;
+  line-height: 42px;
+  border: 0;
+  color: #FFF;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-family: 'Poppins';
+  font-size: 12px;
+  text-rendering: auto;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-transition: background-color .4s ease;
+  transition: background-color .4s ease;
+  -webkit-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+form > .button:hover {
+  background-color: rgba(194, 4, 48, 1);
+  
+}
+	</style>
+  </head>
+  <body style="text-align: center;">
+	<div id="search" style="width: 1000; hight:700;">
+	  <form>
+		  <input id="searchValue" type="text" class="textbox" placeholder="Search" value="jazz">
+		  <input id="searchButton" title="Search" value="Search" class="button">
+	 </form>
+	 <br/>
+	 <br/>
+	</div>
+	<div id="video" style=" color: #C20430;">Fly over a video...</div>
+	<br/>
+    <div id="container" style="margin:auto;" style="position: absolute; width: 80%; height: 50%;">
+    </div>           
+	 <script>
+	 
+	 //open page with a prepared search
+	 var searchPattern = "jazz";
+	 var limit=10;
+	 search(searchPattern);
+	 
+	 
+	 
+	 //fire new search based on search patter
+	 $(document).ready(function() {
+		$("#searchButton").click(function(){
+			searchPattern = $('#searchValue').val();
+			$( "#container" ).empty();
+			search(searchPattern)
+		}); 
+	});
+	
+	$(document).keypress(function(e) {
+		if(e.which == 13) {
+			searchPattern = $('#searchValue').val();
+			$( "#container" ).empty();
+			search(searchPattern)
+		}
+	});	
+	 
+	
+	
+	
+function search(pattern)
+{	 
+	//get data and draw 
+	$.ajax({ 
+	   type: "GET",
+	   dataType: "json",
+	   url: "https://loustic.tk/api/videos?search="+searchPattern+"&limit="+limit,
+	   success: function(response){       
+		
+		if(response.totalFound == 0)
+		{
+		$( "#video" ).text("oops, no matches are found!");
+		return;
+		}
+		
+		if(response.totalFound > limit)
+		{
+			$( "#video" ).text("We've found "+response.totalFound+" total mathces (showing only "+limit+")");
+		}
+		else{
+			$( "#video" ).text("We've found "+response.totalFound+" total mathces!");
+		}
+		
+		 var width = 1000,
+		 height = 700;
+	 
+		var svg = d3.select("#container")
+		.append("svg")
+		.attr("height",height)
+		.attr("width",width)
+		.append("g")
+		.attr("transform","translate(0,0)")
+		 
+		 //calculate min & max view count to use for setting circle radiuc range
+		 
+		 var temp = [];
+		 response.results.forEach(function(item){
+			temp.push(+item.statistics.viewCount)
+		 });
+		 
+		 
+		 var min = d3.min(temp,function(d){return d;});
+		 var max = d3.max(temp,function(d){return d;});
+		 var radiusScale = d3.scaleSqrt().range([200,400]).domain([min,max]);
+	 
+	 
+		
+		 //creating simulation and a set of forces on X,Y and collision
+		 var simulation = d3.forceSimulation()
+			.force("x",d3.forceX(width/2).strength(0.1))
+			.force("y",d3.forceY(height/2).strength(0.1))
+			.force("collide",d3.forceCollide(function(d){
+				return radiusScale(d.statistics.viewCount) + 2;
+			}));
+		 
+		 var foreignObject = svg.selectAll(".videos")
+			.data(response.results)
+			.enter().append("foreignObject")
+			.attr("class","videos")
+			.attr("x",function(d){return d.x;}) //controls its position
+			.attr("y",function(d){return d.y;})
+			
+		var videos = foreignObject.append("xhtml:object")
+				.attr("xmlns", "http://www.w3.org/1999/xhtml") //working on chrome without it, but keep for other browsers
+				.attr("height", function(d){
+						return radiusScale(d.statistics.viewCount);
+					}) //control size of video
+				.attr("width", function(d){
+						return radiusScale(d.statistics.viewCount)+50;
+					})
+				.attr("data",function(d){return "http://www.youtube.com/embed/"+d.id;});
+		 
+		
+		 
+		simulation.nodes(response.results)
+			.on("tick",ticked);
+		
+		function ticked(){
+		foreignObject
+			.attr("x",function(d){
+				return d.x;
+			})
+			.attr("y",function(d){
+				return d.y;
+			})
+			
+		}
+		
+		
+		function showDetail(d) {
+		d3.select(this).style("cursor", "pointer");
+		d3.select("#video").text(d.snippet.title);
+		
+		}
+ 
+    	function hideDetail(d) {
+		d3.select(this).style("cursor", "default");
+		d3.select("#video").text("Fly over a video...");	
+			
+		}
+		
+		
+	   }
+	});
+}
+	</script>
+  </body>
+</html>
