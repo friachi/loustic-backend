@@ -27,6 +27,7 @@ button {
 }
 .datamap{
 	text-align:center;
+
 }
 
 </style>
@@ -42,7 +43,7 @@ button {
 		<!-- button style="margin:auto; id="request-button" onclick="sendRequest()">Map videos</button -->
 		<!-- button style="margin:auto; id="nontagged-button" onclick="openNonTagedList()" style="display: none;">Show non tagged videos</button -->
     	</div>
-	<div id="containerMap" style="width:1300;height:700;"></div>
+	<div id="containerMap"></div>
 	<br/>
     <div id="tell" style="font-size: 18px; text-align:center;"></div>
     <br/>
@@ -175,8 +176,8 @@ for (var key in aggObject.aggregate) {
         // countries not listed in dataset will be painted with this color
         fills: { defaultFill: '#ffffff' },
         data: dataset,
-        height: 900, // If not null, datamaps will grab the height of 'element'
-    	width: 1300, // If not null, datamaps will grab the width of 'element',
+        height: null, // If not null, datamaps will grab the height of 'element'
+    	width: null, // If not null, datamaps will grab the width of 'element',
         responsive: true,
         geographyConfig: {
             borderColor: '#DEDEDE',
