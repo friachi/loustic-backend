@@ -205,7 +205,7 @@ function search(pattern)
 			})
 			.on("click",function(d){
 				
-					playListUrl = "http://www.youtube.com/embed/"+d.id;
+					playListUrl = "https://www.youtube.com/embed/"+d.id;
 
 					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 					$( "#tell" ).text("Session: '"+d.snippet.title+"'");

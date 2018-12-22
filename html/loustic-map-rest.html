@@ -211,7 +211,7 @@ for (var key in aggObject.aggregate) {
 					shuffleArray(aggObject.aggregate[geography.id].videoIds); //so each click returns differernt results
 					var videosList = aggObject.aggregate[geography.id].videoIds.slice(0,50).join(",");
 				
-					playListUrl = "http://www.youtube.com/embed?playlist="+videosList;
+					playListUrl = "https://www.youtube.com/embed?playlist="+videosList;
 
 					window.open(playListUrl, 'iframe_playlist');
 					$( "#tell" ).text("Playlist for '"+geography.properties.name+"' wtih "+aggObject.aggregate[geography.id].videoIds.length+" videos. Click below on the top-left icon to see all of them");
