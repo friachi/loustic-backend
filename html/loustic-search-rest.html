@@ -80,7 +80,12 @@ form > .button:hover {
 	<div id="video" style=" color: #C20430;">Fly over a video...</div>
 	<br/>
     <div id="container" style="margin:auto;" style="position: absolute; width: 80%; height: 50%;">
-    </div>           
+    </div>
+    <div id="tell" style="font-size: 18px;"></div>
+    <br/>
+    <iframe src="" name="iframe_playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "520"></iframe>
+    <br/>
+    <br/>           
 	 <script>
 	 
 	 //open page with a prepared search
@@ -199,7 +204,13 @@ function search(pattern)
 				return "url(#"+d.id+")"
 			})
 			.on("click",function(d){
-				window.open("https://www.youtube.com/watch?v="+d.id, '_blank', 'height=750,width=920,scrollbars=yes,status=no,menubar=no');
+				
+					playListUrl = "http://www.youtube.com/embed/"+d.id;
+
+					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
+					$( "#tell" ).text("Session: '"+d.snippet.title+"'");
+
+
 			})
 			.on('mouseover', showDetail)
 			.on('mouseout', hideDetail);

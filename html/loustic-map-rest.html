@@ -2,10 +2,10 @@
 <html>
  <head>
  <title>Get videos and plot them on world map</title>
-	 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	 <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady">  </script>
-	 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
-	 <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 	 <script src="datamaps.world.min.js"></script>
 	 <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <style>
@@ -25,9 +25,14 @@ button {
 	font-size: 18px;"
 	color: #C20430;
 }
+.datamap{
+	text-align:center;
+}
+
 </style>
  </head>
-  <body>
+  <body >
+  	
 	<div style="text-align:center;">
 	  <input style="margin:auto;" type="radio" id="r1_ArtistsFrom" name="mapBy" value="ArtistsFrom" checked="checked"> By Artists origins</input>
 	  <input style="margin:auto;" type="radio" id="r2_RecordedIn" name="mapBy" value="RecordedIn"> By where it was recorded</input>|
@@ -37,15 +42,19 @@ button {
 		<!-- button style="margin:auto; id="request-button" onclick="sendRequest()">Map videos</button -->
 		<!-- button style="margin:auto; id="nontagged-button" onclick="openNonTagedList()" style="display: none;">Show non tagged videos</button -->
     	</div>
-	<div style="margin:auto;" id="containerMap" style="position: absolute; width: 80%; height: 50%;"></div>	        
+	<div id="containerMap" style="width:1300;height:700;"></div>
+	<br/>
+    <div id="tell" style="font-size: 18px; text-align:center;"></div>
+    <br/>
+    <div style="text-align:center;">
+	<iframe src="" name="iframe_playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "550"></iframe>
+</div>
+    <br/>
+    <br/>
+
+          
   <script>
   
-
-// Define some variables used to remember state.
-var nextPageToken, prevPageToken;
-var apiKey='AIzaSyBF_Fv2DtGxLF_4rw_kUeMjwvPtekxau_M';
-var playlistId='UUHziILhb2V5ahNIMSmaOAbQ'; //Loustic sessions 'Uploads' playlist
-
 var videosDetails = {};
 videosDetails.results = [];
 var aggrByArtistsFrom = {};
@@ -166,6 +175,8 @@ for (var key in aggObject.aggregate) {
         // countries not listed in dataset will be painted with this color
         fills: { defaultFill: '#ffffff' },
         data: dataset,
+        height: 900, // If not null, datamaps will grab the height of 'element'
+    	width: 1300, // If not null, datamaps will grab the width of 'element',
         responsive: true,
         geographyConfig: {
             borderColor: '#DEDEDE',
@@ -195,9 +206,14 @@ for (var key in aggObject.aggregate) {
 		done: function(datamap) {
             datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
 				if(aggObject.aggregate[geography.id]){
-					var videosList = aggObject.aggregate[geography.id].videoIds.join(",");
-					playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-					window.open(playListUrl, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
+
+					shuffleArray(aggObject.aggregate[geography.id].videoIds); //so each click returns differernt results
+					var videosList = aggObject.aggregate[geography.id].videoIds.slice(0,50).join(",");
+				
+					playListUrl = "http://www.youtube.com/embed?playlist="+videosList;
+
+					window.open(playListUrl, 'iframe_playlist');
+					$( "#tell" ).text("Playlist for '"+geography.properties.name+"' wtih "+aggObject.aggregate[geography.id].videoIds.length+" videos. Click below on the top-left icon to see all of them");
 				}
             });
 			
@@ -209,31 +225,22 @@ for (var key in aggObject.aggregate) {
         }
     });
     
+    
     d3.select(window).on('resize', function() {
         map.resize();
     });
+    
+   
 
 
 }
 
-//open playlist of non taged videos
-function openNonTagedList()
-{
-	var videosList;
-	var playListUrl;
-	
-	if(notTaggedYet.length > 50){
-	//get only first 50
-		videosList  = notTaggedYet.slice(0,50).join(",");
-	}
-	else {
-		videosList = notTaggedYet.join(",");
-	}
-	
-	playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-	window.open(playListUrl, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');  
 
-
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
 </script> 

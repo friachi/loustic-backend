@@ -49,9 +49,12 @@
 		<input style="margin:auto;" type="radio" id="r2_viewCount" name="sizeBy" value="r2_viewCount">View count</input>
 	</div>
 	<br/>
-	<br/>
-    <div id="container" style="margin:auto;" style="position: absolute; width: 80%; height: 50%;">
-    </div>           
+    <div id="container" style="margin:auto;" style="position: absolute; width: 80%; height: 50%;"></div>
+    <div id="tell" style="font-size: 18px;"></div>
+    <br/>
+    <iframe src="" name="iframe_playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "520"></iframe>
+    <br/>
+    <br/>
 	 <script>
 	 
 	 var genres = [];
@@ -156,10 +159,14 @@
 			})
 			.text(function(d) {return d.text;})
 			.on("click", function(d) { 
-				var videosList = d.aggregate.videoIds.slice(1,50).join(",");
+
+				shuffleArray(d.aggregate.videoIds); //so each click returns differernt results
+				var videosList = d.aggregate.videoIds.slice(0,50).join(",");
 				
-					playListUrl = "https://www.youtube.com/watch_videos?video_ids="+videosList;
-					window.open(playListUrl, '_blank', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
+					playListUrl = "http://www.youtube.com/embed?playlist="+videosList;
+
+					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
+					$( "#tell" ).text("Playlist for '"+d.text+"' style wtih "+d.aggregate.videoIds.length+" videos. Click below on top-left icon to see all videos");
 			})
 			.on('mouseover', showDetail)
 			.on('mouseout', hideDetail);
@@ -184,6 +191,13 @@
     d3.select(this).style("cursor", "default"); 
     tooltip.hideTooltip();
   }
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 	 </script>
   </body>
 </html>
