@@ -52,7 +52,7 @@
     <div id="container" style="margin:auto;" style="position: absolute; width: 80%; height: 50%;"></div>
     <div id="tell" style="font-size: 18px;"></div>
     <br/>
-    <iframe src="" name="iframe_playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "520"></iframe>
+    <iframe src="https://www.youtube.com/embed/h63LVIv6U_A" name="iframe_playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "520"></iframe>
     <br/>
     <br/>
 	 <script>
@@ -166,7 +166,7 @@
 					playListUrl = "https://www.youtube.com/embed?playlist="+videosList;
 
 					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
-					$( "#tell" ).text("Playlist for '"+d.text+"' style wtih "+d.aggregate.videoIds.length+" videos. Click below on top-left icon to see all videos");
+					$( "#tell" ).text("Playlist for '"+d.text+"' style with "+d.aggregate.videoIds.length+" videos. Click below on top-left icon to see all videos");
 			})
 			.on('mouseover', showDetail)
 			.on('mouseout', hideDetail);
