@@ -83,7 +83,7 @@ form > .button:hover {
     </div>
     <div id="tell" style="font-size: 18px;"></div>
     <br/>
-    <iframe src="https://www.youtube.com/embed/rsTOMQoRY4I" name="iframe_playlist" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "520"></iframe>
+    <iframe src="https://www.youtube.com/embed/videoseries?list=UUHziILhb2V5ahNIMSmaOAbQ" name="iframe_playlist" id ="ifrm" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen width="850" height= "520"></iframe>
     <br/>
     <br/>           
 	 <script>
@@ -127,6 +127,7 @@ function search(pattern)
 		if(response.totalFound == 0)
 		{
 		$( "#video" ).text("oops, no matches are found!");
+		$('#ifrm').attr('src', '');
 		return;
 		}
 		
