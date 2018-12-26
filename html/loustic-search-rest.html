@@ -101,7 +101,10 @@ form > .button:hover {
 			searchPattern = $('#searchValue').val();
 			$( "#container" ).empty();
 			search(searchPattern)
+			 
 		}); 
+		
+		
 	});
 	
 	$(document).keypress(function(e) {
@@ -210,6 +213,7 @@ function search(pattern)
 
 					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 					$( "#tell" ).text("Session: '"+d.snippet.title+"'");
+					$('html,body').animate({scrollTop: document.body.scrollHeight},"slow"); //scroll to the bottom of the page
 
 
 			})

@@ -167,6 +167,7 @@
 
 					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 					$( "#tell" ).text("Playlist for '"+d.text+"' style with "+d.aggregate.videoIds.length+" videos. Click below on top-left icon to see all videos");
+					$('html,body').animate({scrollTop: document.body.scrollHeight},"slow"); //scroll to the bottom of the page
 			})
 			.on('mouseover', showDetail)
 			.on('mouseout', hideDetail);
