@@ -251,7 +251,7 @@ for (var key in aggObject.aggregate) {
 					window.open(playListUrl, 'iframe_playlist');
 					$( "#tell" ).text("Playlist for '"+geography.properties.name+"' wtih "+aggObject.aggregate[geography.id].videoIds.length+" videos. Click below on the top-left icon to see all of them");
 					$('html,body').animate({scrollTop: document.body.scrollHeight},"slow"); //scroll to the bottom of the page
-					handleClick(geography.properties.name); //send click event to wix code
+					handleClick(geography.properties.name); //send click event to wix code to control scroll the behavior
 				}
             });
 			

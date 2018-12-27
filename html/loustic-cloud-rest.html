@@ -57,6 +57,40 @@
     <br/>
 	 <script>
 	 
+	 //// communicate with wix code ///
+
+  window.onmessage = function(event){
+
+    if (event.data) {
+      if (event.data == "WAIT") {
+        console.log("WAIT");
+      }
+      else if (event.data == "GO") {
+        console.log("lets animate");
+        
+      }
+    }
+    else {
+      console.log("HTML Code Element received a generic message:");
+      console.log(event.data);
+    }
+  };
+
+  function handleClick(navigateTo){
+    window.parent.postMessage({
+      "type":"click",
+      "label":"button",
+      "value":navigateTo
+    } , "*");
+  }
+
+  function ready(){
+    window.parent.postMessage({"type":"ready"}, "*");
+  }
+
+
+//////////////
+	 
 	 var genres = [];
 	 var data;
 	 var scalar;
@@ -168,6 +202,7 @@
 					window.open(playListUrl, 'iframe_playlist', 'height=650,width=520,scrollbars=yes,status=no,menubar=no');
 					$( "#tell" ).text("Playlist for '"+d.text+"' style with "+d.aggregate.videoIds.length+" videos. Click below on top-left icon to see all videos");
 					$('html,body').animate({scrollTop: document.body.scrollHeight},"slow"); //scroll to the bottom of the page
+					handleClick(d.text); //send click event to wix code to control scroll the behavior
 			})
 			.on('mouseover', showDetail)
 			.on('mouseout', hideDetail);
