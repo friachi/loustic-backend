@@ -55,6 +55,41 @@ button {
 
           
   <script>
+
+//// communicate with wix code ///
+
+  window.onmessage = function(event){
+
+    if (event.data) {
+      if (event.data == "WAIT") {
+        console.log("WAIT");
+      }
+      else if (event.data == "GO") {
+        console.log("lets animate");
+        
+      }
+    }
+    else {
+      console.log("HTML Code Element received a generic message:");
+      console.log(event.data);
+    }
+  };
+
+  function handleClick(navigateTo){
+    window.parent.postMessage({
+      "type":"click",
+      "label":"button",
+      "value":navigateTo
+    } , "*");
+  }
+
+  function ready(){
+    window.parent.postMessage({"type":"ready"}, "*");
+  }
+
+
+//////////////
+
   
 var videosDetails = {};
 videosDetails.results = [];
@@ -216,6 +251,7 @@ for (var key in aggObject.aggregate) {
 					window.open(playListUrl, 'iframe_playlist');
 					$( "#tell" ).text("Playlist for '"+geography.properties.name+"' wtih "+aggObject.aggregate[geography.id].videoIds.length+" videos. Click below on the top-left icon to see all of them");
 					$('html,body').animate({scrollTop: document.body.scrollHeight},"slow"); //scroll to the bottom of the page
+					handleClick(geography.properties.name); //send click event to wix code
 				}
             });
 			
