@@ -1,0 +1,154 @@
+{
+ "name": "1901",
+ "gain": 1,
+ "position": 48,
+ "minTime": 3,
+ "maxTime": 713.4563125,
+ "playing": false,
+ "duration": 713.4563125,
+ "tracks": [
+  {
+   "name": "Drums L",
+   "path": "sounds/tanjara-tabl-eleid/Alldrums.L.mp3",
+   "gain": 0.6735186466942147,
+   "pan": -1,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Drums R",
+   "path": "sounds/tanjara-tabl-eleid/Alldrums.R.mp3",
+   "gain": 0.6735186466942147,
+   "pan": 1,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Bass",
+   "path": "sounds/tanjara-tabl-eleid/Bass.mp3",
+   "gain": 0.9968207128099171,
+   "pan": 0,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Khaled Vox",
+   "path": "sounds/tanjara-tabl-eleid/KhaledVocal.L.mp3",
+   "gain": 1.3224999999999998,
+   "pan": 0,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Tarek Vox",
+   "path": "sounds/tanjara-tabl-eleid/TarekVocal.L.mp3",
+   "gain": 0.55875625,
+   "pan": -0.31817540662604,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Piano L",
+   "path": "sounds/tanjara-tabl-eleid/Piano.L.mp3",
+   "gain": 0.4617820247933883,
+   "pan": -0.9959872848351641,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Piano R",
+   "path": "sounds/tanjara-tabl-eleid/Piano.R.mp3",
+   "gain": 0.48334096074380145,
+   "pan": 0.9880235923497798,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Room L",
+   "path": "sounds/tanjara-tabl-eleid/Room.L.mp3",
+   "gain": 0.9150661673553718,
+   "pan": -0.9976710704752894,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "Room R",
+   "path": "sounds/tanjara-tabl-eleid/Room.R.mp3",
+   "gain": 0.9150661673553718,
+   "pan": 0.990371258224823,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "B RVB L",
+   "path": "sounds/tanjara-tabl-eleid/BigReverb.L.mp3",
+   "gain": 0.5509688016528924,
+   "pan": -0.9893853247503718,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "B RBV R",
+   "path": "sounds/tanjara-tabl-eleid/BigReverb.R.mp3",
+   "gain": 0.5744950929752064,
+   "pan": 0.9675616752493044,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "S RVB L",
+   "path": "sounds/tanjara-tabl-eleid/SmallReverb.L.mp3",
+   "gain": 0.6230231921487603,
+   "pan": -0.9977854993580003,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  },
+  {
+   "name": "S RVB R",
+   "path": "sounds/tanjara-tabl-eleid/SmallReverb.R.mp3",
+   "gain": 0.5509688016528924,
+   "pan": 0.996275419528591,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 713.4563125
+  }
+ ]
+}
