@@ -55,7 +55,7 @@
     <div>
       <button class="btn mute {{muted}}">M</button>
       <button class="btn solo {{soloed}}">S</button>
-      <!--button class="btn afl {{afl}}">PFL</button-->
+      <button class="btn afl {{afl}}">PFL</button>
       <div class="pan">
         <div class="panner" style="-webkit-transform: rotate({{pan}}deg); -moz-transform: rotate({{pan}}deg);">
           <div class="pan-indicator"></div>
@@ -92,7 +92,15 @@
   
  var mediaVideo = $("#myVideo").get(0);
  mediaVideo.muted = true;
- mediaVideo.pause();
+ mediaVideo.pause(); 
+ 
+ mediaVideo.ontimeupdate = function() {sync()};
+
+function sync() {
+	 //continously makes sure that both video and audio are in synch
+   App.mix.set("position",mediaVideo.currentTime); 
+   //console.log(mediaVideo.currentTime);
+}
  
  //wait till all tracks are loaded, then pause the play
  App.vent.on('ready',function(a) {
