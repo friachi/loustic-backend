@@ -19335,32 +19335,43 @@
     function bindEvents() {
       $(document).on('keyup', function( ev ) {
         var playing = App.mix.get('playing'),
-          position = App.mix.get('position');
+          position = App.mix.get('position'),
+		  mediaVideo = $("#myVideo").get(0);
         switch ( ev.keyCode ) {
           // spacebar
           case 32:
             if ( !playing ) {
               App.mix.play();
+			  mediaVideo.play();
             } else {
               App.mix.pause();
+			  mediaVideo.pause();
             }
             break;
           // r
           case 82:
-            App.mix.play(0);
+			var min_pos = App.mix.get("minTime");
+			mediaVideo.currentTime = min_pos;
+			App.mix.play(min_pos);
+			mediaVideo.play();
             if ( !playing ) {
               App.mix.pause();
+			  mediaVideo.pause();
             }
             break;
           // left arrow
           case 37:
             if ( playing ) {
               App.mix.play(position - 10);
+			  mediaVideo.currentTime = position - 10;
+			  mediaVideo.play();
             }
             break;
           case 39:
             if ( playing ) {
               App.mix.play(position + 10);
+			  mediaVideo.currentTime = position + 10;
+			  mediaVideo.play();
             }
             break;
         }
@@ -19700,7 +19711,7 @@
   App.module('Models', function( Models, App, Backbone, Marionette, $, _ ) {
   
     'use strict';
-  
+	
     var Mix = Models.Mix = Backbone.Model.extend({
   
       url: 'mix.json',
@@ -20474,8 +20485,10 @@
         }
         if ( this.model.get('playing') ) {
           this.model.pause();
+		  $("#myVideo").get(0).pause();
         } else {
           this.model.play();
+		  $("#myVideo").get(0).play();
         }
       },
   
@@ -20483,22 +20496,35 @@
         if ( ev && 'ontouchstart' in window && ev.type === 'click' ) {
           return;
         }
-        this.model.play(0);
+		var min_post = this.model.get("minTime");
+		$("#myVideo").get(0).currentTime = min_post;
+        this.model.play(min_post);
+		$("#myVideo").get(0).play();
+		
         if ( !this.model.get('playing') ) {
           this.model.pause();
+		  $("#myVideo").get(0).pause();
         }
       },
   
       rewind: function( ev ) {
         var pos;
+		var min_pos;
         if ( ev && 'ontouchstart' in window && ev.type === 'click' ) {
           return;
         }
         pos = this.model.get('position');
+		min_pos = this.model.get("minTime");
+		var go_pos = (((pos - 10) < min_pos) ? min_pos : (pos - 10));
         if ( this.model.get('playing') ) {
-          this.model.play(pos - 10);
+		  	
+          $("#myVideo").get(0).currentTime = go_pos;
+		  this.model.play(go_pos);
+		  $("#myVideo").get(0).play();
+		  
         }  else {
-          this.model.set('position', pos - 10);
+		  $("#myVideo").get(0).currentTime = go_pos;
+          this.model.set('position', go_pos);
         }
       },
   
@@ -20509,8 +20535,11 @@
         }
         pos = this.model.get('position');
         if ( this.model.get('playing') ) {
+		  $("#myVideo").get(0).currentTime = pos + 10;
           this.model.play(pos + 10);
+		  $("#myVideo").get(0).play();
         }  else {
+		  $("#myVideo").get(0).currentTime = pos + 10;
           this.model.set('position', pos + 10);
         }
       },

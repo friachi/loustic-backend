@@ -71,25 +71,26 @@
 
   <script type="text/template" id="tmpl-controls">
     <canvas class="clock" width="360" height="120"></canvas>
-    <!--div class="buttons">
+    <div class="buttons">
       <button class="btn-cntrl start"></button>
       <button class="btn-cntrl rw"></button>
       <button class="btn-cntrl play {{playing}}"></button>
       <button class="btn-cntrl ff"></button> 
-    </div-->
+    </div>
   </script>
-  <br>
+  <!--br>
   <div class="buttons">
 	 <div class="btn-cntrl start" id="start-btn" type="image"></div>
 	 <div class="btn-cntrl rw" id="rewind-btn" type="image"></div>
 	 <div class="btn-cntrl play" id="play-btn"></div>
 	 <div class="btn-cntrl ff" id="ff-btn" type="image"></div>
 	
-	</div>
+	</div-->
 
-  <script src="js/Mix.min.js"></script>
+  <script src="js/Mix.js"></script>
 <script>
-  
+ //App.Models.Mix.prototype.url = "tanjara-tabl-eleid.json";
+
  var mediaVideo = $("#myVideo").get(0);
  mediaVideo.muted = true;
  mediaVideo.pause(); 
@@ -104,14 +105,16 @@ function sync() {
  
  //wait till all tracks are loaded, then pause the play
  App.vent.on('ready',function(a) {
-	   App.mix.pause();
+	  App.mix.pause();
       mediaVideo.pause();
       var pos = App.mix.get("minTime");
       mediaVideo.currentTime = pos;
       App.mix.set("position",pos);App.mix.pause();
+  
 	$("#play-btn").addClass("paused");
  }
  );
+ 
 
  //PLAY  / PAUSE
   $('#play-btn').click(function () {
