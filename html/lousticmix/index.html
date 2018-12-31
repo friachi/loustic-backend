@@ -10,12 +10,12 @@
 <body>
 
   <header>
-    <h1>Tanjaret Daghet | Tabel al Eid | Loustic Sessions</h1>
+    <h1>Quiet Island | Downtown | Loustic Sessions</h1>
   </header>
   
   <div style="position: relative;">
 	  <video id="myVideo" width="650" height="420">
-		  <source src="video/tanjara-tabl-eleid/TanjaretDaghetTabelAlEid.mp4" type="video/mp4">
+		  <source src="video/quiet-island/QuietIsland.mp4" type="video/mp4">
 		  Your browser does not support HTML5 video.
 	</video>
   </div>
@@ -55,7 +55,7 @@
     <div>
       <button class="btn mute {{muted}}">M</button>
       <button class="btn solo {{soloed}}">S</button>
-      <button class="btn afl {{afl}}">PFL</button>
+      <!--button class="btn afl {{afl}}">PFL</button-->
       <div class="pan">
         <div class="panner" style="-webkit-transform: rotate({{pan}}deg); -moz-transform: rotate({{pan}}deg);">
           <div class="pan-indicator"></div>
@@ -96,8 +96,11 @@
  
  //wait till all tracks are loaded, then pause the play
  App.vent.on('ready',function(a) {
-	
-	App.mix.pause();
+	   App.mix.pause();
+      mediaVideo.pause();
+      var pos = App.mix.get("minTime");
+      mediaVideo.currentTime = pos;
+      App.mix.set("position",pos);App.mix.pause();
 	$("#play-btn").addClass("paused");
  }
  );

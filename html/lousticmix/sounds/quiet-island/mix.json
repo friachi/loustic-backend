@@ -1,0 +1,154 @@
+{
+ "name": "1901",
+ "gain": 1,
+ "position": 95.54399999999998,
+ "minTime": 33,
+ "maxTime": 284,
+ "playing": true,
+ "duration": 284.9175416666667,
+ "tracks": [
+  {
+   "name": "Shaker",
+   "path": "sounds/quiet-island/Shaker-St.L.mp3",
+   "gain": 0.6907876549586776,
+   "pan": -0.01890018635779489,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Bass",
+   "path": "sounds/quiet-island/Bass-St.L.mp3",
+   "gain": 0.6735186466942147,
+   "pan": 0.020330166648454107,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Ac Guitar",
+   "path": "sounds/quiet-island/AcousticGuitar-St.L.mp3",
+   "gain": 0.9968207128099171,
+   "pan": -0.3892833183583406,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "El Guitar",
+   "path": "sounds/quiet-island/ElctricGuitar-St.L.mp3",
+   "gain": 1.0072859504132232,
+   "pan": 0.4424708151289545,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Lead Vox",
+   "path": "sounds/quiet-island/Lead-St.L.mp3",
+   "gain": 1.1483070764462808,
+   "pan": -0.011062517305868158,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Bkg Vox L",
+   "path": "sounds/quiet-island/BKG-St.L.mp3",
+   "gain": 0.413390547520661,
+   "pan": -0.9959872848351641,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Bkg Vox R",
+   "path": "sounds/quiet-island/BKG-St.R.mp3",
+   "gain": 0.40669607438016525,
+   "pan": 0.9880235923497798,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "B RVB L",
+   "path": "sounds/quiet-island/BigReverb-St.L.mp3",
+   "gain": 0.4760999999999999,
+   "pan": -0.9893853247503718,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "B RBV R",
+   "path": "sounds/quiet-island/BigReverb-St.R.mp3",
+   "gain": 0.48334096074380145,
+   "pan": 0.9988981874794021,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "S RVB L",
+   "path": "sounds/quiet-island/SmallReverb-St.L.mp3",
+   "gain": 0.49798682851239656,
+   "pan": -0.9977854993580003,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "S RVB R",
+   "path": "sounds/quiet-island/SmallReverb-St.R.mp3",
+   "gain": 0.49798682851239656,
+   "pan": 0.9956837701531258,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Cam L",
+   "path": "sounds/quiet-island/Cam-St.L.mp3",
+   "gain": 0.9150661673553718,
+   "pan": -0.9976710704752894,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  },
+  {
+   "name": "Cam R",
+   "path": "sounds/quiet-island/Cam-St.R.mp3",
+   "gain": 0.9150661673553718,
+   "pan": 0.990371258224823,
+   "muted": false,
+   "_muted": false,
+   "soloed": false,
+   "afl": true,
+   "duration": 284.9175416666667
+  }
+ ]
+}
