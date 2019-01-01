@@ -95,12 +95,25 @@
  mediaVideo.muted = true;
  mediaVideo.pause(); 
  
+ var vidTick, audTick;
+
  mediaVideo.ontimeupdate = function() {sync()};
 
 function sync() {
 	 //continously makes sure that both video and audio are in synch
-   App.mix.set("position",mediaVideo.currentTime); 
-   //console.log(mediaVideo.currentTime);
+   vidTick = App.mix.get("position");
+   audTick = mediaVideo.currentTime;
+
+   //console.log(Math.abs(audTick - vidTick));
+   
+   if(App.mix.get("playing") && Math.abs(audTick - vidTick) >= 0.06)
+    {
+      console.log("sync");
+      App.mix.pause();
+      App.mix.play(mediaVideo.currentTime);
+    }
+    
+
 }
  
  //wait till all tracks are loaded, then pause the play
