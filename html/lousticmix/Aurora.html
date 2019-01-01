@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Loustic Mix - Aurora</title>
+  <meta name="description" content="Try Multitrack mixing of a Loustic session">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/Mix.css">
+</head>
+<body>
+
+  <header>
+    <h1>Aurora | Queendom | Loustic Sessions</h1>
+  </header>
+  
+  <div style="position: relative;">
+	  <video id="myVideo" width="650" height="420">
+		  <source src="video/aurora/Aurora.mp4" type="video/mp4">
+		  Your browser does not support HTML5 video.
+	</video>
+  </div>
+
+  <div id="loader">
+    <div class="loader-bar"></div>
+    <span>Loading Audio Assets...</span>
+  </div>
+
+  <div id="mixer">
+    <div id="meters">
+      <div class="vu">
+        <div class="mask">
+          <div class="needle left" style="-webkit-transform: rotateZ(0deg);"></div>
+        </div>
+        <p class="vu-label">L</p>
+      </div>
+      <div class="vu">
+        <div class="mask">
+          <div class="needle right" style="-webkit-transform: rotateZ(0deg);"></div>
+        </div>
+        <p class="vu-label">R</p>
+      </div>
+    </div>
+    <div id="master">
+      <div class="track">
+        <div class="fader" style="top: 209px;"></div>
+      </div>
+      <p class="label">Master</p>
+    </div>
+  </div>
+
+  <div id="controls"></div>
+   
+
+  <script type="text/template" id="tmpl-track">
+    <div>
+      <button class="btn mute {{muted}}">M</button>
+      <button class="btn solo {{soloed}}">S</button>
+      <button class="btn afl {{afl}}">PFL</button>
+      <div class="pan">
+        <div class="panner" style="-webkit-transform: rotate({{pan}}deg); -moz-transform: rotate({{pan}}deg);">
+          <div class="pan-indicator"></div>
+        </div>
+      </div>
+      <div class="track">
+        <canvas class="meter" width="8" height="280"></canvas>
+        <div class="fader" style="top: {{gain}}px;"></div>
+      </div>
+      <p class="label">{{name}}</p>
+    </div>
+  </script>
+
+  <script type="text/template" id="tmpl-controls">
+    <canvas class="clock" width="360" height="120"></canvas>
+    <div class="buttons">
+      <button class="btn-cntrl start"></button>
+      <button class="btn-cntrl rw"></button>
+      <button class="btn-cntrl play {{playing}}"></button>
+      <button class="btn-cntrl ff"></button> 
+    </div>
+  </script>
+  <!--br>
+  <div class="buttons">
+	 <div class="btn-cntrl start" id="start-btn" type="image"></div>
+	 <div class="btn-cntrl rw" id="rewind-btn" type="image"></div>
+	 <div class="btn-cntrl play" id="play-btn"></div>
+	 <div class="btn-cntrl ff" id="ff-btn" type="image"></div>
+	
+	</div-->
+
+  <script src="js/Mix.js"></script>
+<script>
+ //App.Models.Mix.prototype.url = "tanjara-tabl-eleid.json";
+
+ var mediaVideo = $("#myVideo").get(0);
+ mediaVideo.muted = true;
+ mediaVideo.pause(); 
+ 
+ var vidTick, audTick;
+
+ mediaVideo.ontimeupdate = function() {sync()};
+
+function sync() {
+	 //continously makes sure that both video and audio are in synch
+   vidTick = App.mix.get("position");
+   audTick = mediaVideo.currentTime;
+
+   //console.log(Math.abs(audTick - vidTick));
+   
+   if(App.mix.get("playing") && Math.abs(audTick - vidTick) >= 0.06)
+    {
+      console.log("sync");
+      App.mix.pause();
+      App.mix.play(mediaVideo.currentTime);
+    }
+    
+
+}
+ 
+ //wait till all tracks are loaded, then pause the play
+ App.vent.on('ready',function(a) {
+	  App.mix.pause();
+      mediaVideo.pause();
+      var pos = App.mix.get("minTime");
+      mediaVideo.currentTime = pos;
+      App.mix.set("position",pos);App.mix.pause();
+  
+	$("#play-btn").addClass("paused");
+ }
+ );
+ 
+
+ //PLAY  / PAUSE
+  $('#play-btn').click(function () {
+   if(App.mix.get("playing"))
+    {
+		App.mix.pause();
+		mediaVideo.pause();
+		//$("#play-btn").attr("src","img/pause@2x.png");
+		$("#play-btn").addClass("paused");
+	}
+	else
+	{ 
+		var pos = App.mix.get("position")
+		
+		mediaVideo.currentTime = pos;
+		App.mix.set("position",pos);
+		
+		mediaVideo.play();
+		App.mix.play();
+		
+		//$("#play-btn").attr("src","img/play@2x.png");
+		$("#play-btn").removeClass("paused");
+		
+	}
+   
+});
+
+//FF
+ $('#ff-btn').click(function () {
+		  App.mix.pause();
+		  mediaVideo.pause();
+		  var pos = App.mix.get("position");
+		  mediaVideo.currentTime = pos + 10;
+		  App.mix.set("position",pos + 10);
+		  mediaVideo.play();
+		  App.mix.play();
+
+});
+
+ $('#rewind-btn').click(function () {
+		  App.mix.pause();
+		  mediaVideo.pause();
+		  var pos = App.mix.get("position"); 
+		  mediaVideo.currentTime = pos - 10;
+		  App.mix.set("position",pos - 10);
+		  mediaVideo.play();
+		  App.mix.play();
+
+});
+
+
+
+ $('#start-btn').click(function () {
+		  App.mix.pause();
+		  mediaVideo.pause();
+		  var pos = App.mix.get("minTime");
+		  mediaVideo.currentTime = pos;
+		  App.mix.set("position",pos);
+		  mediaVideo.play();
+		  App.mix.play();
+
+});
+
+  </script>
+
+ 
+
+</body>
+</html>

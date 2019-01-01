@@ -1,5 +1,7 @@
 # custome
 data/*.json
+*.mp3
+*.mp4
 
 # Logs
 logs
