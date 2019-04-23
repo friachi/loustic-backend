@@ -1,6 +1,6 @@
 # custome
 data/*.json
-
+.idea/
 # Logs
 logs
 *.log
